@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  node-app:
+    build: 
+      context: .
+      args: 
+        NODE_ENV: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=sanjeev
+      - MONGO_PASS=mypassword
+      - SESSION_SECRET=secret
+    command: npm run dev
+
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sanjeev
+      - MONGO_INITDB_ROOT_PASSWORD=mypassword

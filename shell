@@ -1,0 +1,15 @@
+docker build -t node-app-image .
+docker run -d -p 3000:3000 -v $(pwd):/app -v /app/node_modules --env-file ./.env --name node-app node-app-image
+docker rm node-app -f
+docker exec -it node-app bash
+docker exec -it node-docker_node-app_1 bash
+docker-compose up -d --build
+docker-compose down -v
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml down -v
+
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v
+
+docker exec -it node-docker_mongo_1 mongo -u "sanjeev" -p "mypassword"
+docker inspect node-docker_mongo_1
